@@ -23,3 +23,5 @@ Route::get('/terms', function () {
     return view('terms');
 })->name('terms');
 
+Route::get('analyze', 'AnalyzeController@index')->name("analyze");
+

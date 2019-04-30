@@ -64,6 +64,9 @@
                 <li>
                     <a href="{{ route('dashboard')  }}">Dashboard</a>
                 </li>
+                <li>
+                    <a href="{{ route('analyze') }}">Analizar</a>
+                </li>
 
                 {{--<li>--}}
                     {{--<a href="#monitoring" data-toggle="collapse" aria-expanded="false">--}}
