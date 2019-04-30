@@ -37,7 +37,7 @@
                     </a>
                 </div>
             </div>
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{ route("dashboard") }}">
                 Tweets
             </a>
         </div>
@@ -67,17 +67,6 @@
                 <li>
                     <a href="{{ route('analyze') }}">Analizar</a>
                 </li>
-
-                {{--<li>--}}
-                    {{--<a href="#monitoring" data-toggle="collapse" aria-expanded="false">--}}
-                        {{--Monitoring<span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>--}}
-                    {{--</a>--}}
-                    {{--<ul id="monitoring" class="nav nav-second collapse">--}}
-                        {{--<li><a href="metrics.html"> Metrics</a></li>--}}
-                        {{--<li><a href="usage.html"> Usage</a></li>--}}
-                        {{--<li><a href="activity.html"> Activity</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
 
                 <li>
                     <a href="{{ route('terms') }}">

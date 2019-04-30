@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use DarrynTen\PersonalityInsightsPhp\PersonalityInsights;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Models\TwitterAccount;
 
 class AnalyzeController extends Controller
 {
@@ -15,19 +14,27 @@ class AnalyzeController extends Controller
      */
     public function index()
     {
+        return view('analyze');
+    }
 
-        // Set the endpoint URL
-//        $url = 'https://gateway.watsonplatform.net/personality-insights/api';
+    public function analizarCuenta()
+    {
+
+//        $account = $_REQUEST['account'];
 //
-//        // Set the image uri
+//        $twitterAccount = new TwitterAccount($account);
+//        $tweets = $twitterAccount->getTweets();
+//        dd($tweets);
+//        return;
+
 //        $file = File::get(storage_path('sample.txt'));
 //
 //        //cURL
 //        $ch = curl_init();
-//        curl_setopt($ch, CURLOPT_URL, $url."/v3/profile?version=2017-10-13"); //Endpoint URL
+//        curl_setopt($ch, CURLOPT_URL, env('WATSON_URL', "") . "/v3/profile?version=2017-10-13");
 //        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 //        curl_setopt($ch, CURLOPT_POST, 1); //POST
-//        curl_setopt($ch, CURLOPT_USERPWD, "apikey:ELwOs5B7yHT31E_rklYAVFhiIOF7vW2gyT4bVeZ4zw1t");
+//        curl_setopt($ch, CURLOPT_USERPWD, "apikey:".env("WATSON_API_KEY",""));
 //        curl_setopt($ch, CURLOPT_POSTFIELDS, $file); //Parameters
 //        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: text/plain;charset=utf-8", "Accept: application/json"));
 //
@@ -42,8 +49,5 @@ class AnalyzeController extends Controller
 //
 //        // Close the command
 //        curl_close($ch);
-
-
-        return view('analyze');
     }
 }

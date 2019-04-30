@@ -25,3 +25,9 @@ Route::get('/terms', function () {
 
 Route::get('analyze', 'AnalyzeController@index')->name("analyze");
 
+Route::get('analizarCuenta', [
+    'as' => 'analizarCuenta',
+    'uses' => 'AnalyzeController@analizarCuenta',
+]);
+
+
