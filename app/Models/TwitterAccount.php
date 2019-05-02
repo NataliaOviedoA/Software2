@@ -29,4 +29,22 @@ class TwitterAccount extends Model
         }
     }
 
+    public static function formatTweets($tweets){
+        $array = [];
+        foreach ($tweets as $tweet){
+            $element = [];
+            if (array_key_exists("text", $tweet)){
+                $element["content"] = $tweet["text"];
+                $date = date_create($tweet["created_at"]);
+                $element["date"] = date_format($date,"Y/m/d H:i:s");
+                $element["imagen"] = $tweet["user"]["profile_image_url_https"];
+                $element["usuario"] = $tweet["user"]["name"];
+            }
+            $array[] = $element;
+        }
+
+        $result = array("contentItems" => $array);
+        return $result;
+    }
+
 }
