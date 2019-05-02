@@ -15,7 +15,6 @@ class PersonalityInsights
     public static function formatTweets($tweets)
     {
         $array = [];
-        dd($tweets);
         foreach ($tweets as $tweet){
             $element = [];
             if (array_key_exists("text", $tweet)){
@@ -44,7 +43,7 @@ class PersonalityInsights
         curl_setopt($ch, CURLOPT_USERPWD, "apikey:" . env("WATSON_API_KEY", ""));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $file); //Parameters
         curl_setopt($ch, CURLOPT_POSTFIELDS, $file); //Parameters
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json', 'Content-Language: es'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: text/plain', "Accept: application/json", "Content-Language: es"));
 
         // Execute the cURL command
         $result = curl_exec($ch);
