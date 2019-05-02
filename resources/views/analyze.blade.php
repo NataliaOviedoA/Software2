@@ -66,7 +66,7 @@
             <div class="panel">
 
                 <div class="panel-body">
-                    <h4> Resultado de análisis - Personalidad</h4>
+                    <h4> Resultado de análisis</h4>
 
                     <p class="small">
                         Big Five es uno de los modelos de personalidad más estudiados que fueron desarrollados por
@@ -89,36 +89,51 @@
                         <tr>
 
                             <th>#</th>
-                            <th>Nombre</th>
-                            <th>Percentil</th>
+                            <th>Project</th>
+                            <th>Company</th>
+                            <th>Task</th>
+                            <th>Date</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>1</td>
-                            <td>Apertura al cambio (Openness to experience)</td>
-                            <td id="td0">Inceptos Hymenaeos Ltd</td>
+                            <td>Adventurousness
+                            </td>
+                            <td>Inceptos Hymenaeos Ltd</td>
+                            <td>20%</td>
+                            <td>Jul 14, 2016</td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td>Responsabilidad (Conscientiousness)</td>
-                            <td id="td1">Nec Euismod In Company</td>
+                            <td>Artistic interests</td>
+                            <td>Nec Euismod In Company</td>
+                            <td>40%</td>
+                            <td>Jul 16, 2016</td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td>Extraversión (Extraversion)</td>
-                            <td id="td2">Erat Volutpat</td>
+                            <td>Emotionality</td>
+                            <td>Erat Volutpat</td>
+                            <td>75%</td>
+                            <td>Jul 18, 2016</td>
                         </tr>
                         <tr>
                             <td>4</td>
-                            <td>Coordialidad (Agreebleness)</td>
-                            <td id="td3">Intellect</td>
+                            <td>Imagination</td>
+                            <td>Intellect</td>
+                            <td>18%</td>
+                            <td>Jul 22, 2016</td>
                         </tr>
                         <tr>
-                            <td>5</td>
-                            <td>Inestabilidad emocional (Rango emocional)</td>
-                            <td id="td4">Nec Euismod In Company</td>
+                            <td>2</td>
+                            <td>Authority-challenging</td>
+                            <td>Nec Euismod In Company</td>
+                            <td>40%</td>
+                            <td>Jul 16, 2016</td>
                         </tr>
+
+
                         </tbody>
                     </table>
 
@@ -194,7 +209,6 @@
 @endsection
 
 @section("onready")
-    <script src="{{ asset('vendor/chart.js/dist/Chart.min.js')}}"></script>
     <script>
         var globalOptions = {
             responsive: true,
@@ -228,7 +242,35 @@
             $('#result_header').hide();
             $('#result_timeline').hide();
             $('#anotherRow').hide();
+
+            var data = [
+                {
+                    data: [[1, 4], [2, 5], [3, 7], [4, 4], [5, 8], [6, 9], [7, 11], [8, 10], [9, 8], [10, 5], [11, 4], [12, 3]]
+                }
+            ];
+
+            var chartUsersOptions2 = {
+                series: {
+                    splines: {
+                        show: true,
+                        tension: 0.4,
+                        lineWidth: 2,
+                        fill: false
+                    },
+                },
+                legend: {
+                    show: false
+                },
+                grid: {
+                    borderWidth: 0
+                }
+            };
+
+            $.plot($("#flotProfile"), data, chartUsersOptions2);
+
+            // $('#panel1').toggleClass('ld-loading');
         });
+
 
         $('#analyzeButton').on('click', function (e) {
             $('#result_header').hide();
@@ -238,17 +280,7 @@
 
             $('#panel1').toggleClass('ld-loading');
 
-            let account = document.getElementById("account").value;
-
-            let parametros = {
-                account: account
-            };
-
-            $.ajax({
-                type: "GET",
-                url: "{{ route('analizarCuenta') }}",
-                data: parametros,
-            }).done(function (info) {
+            {{--let account = document.getElementById("account").value;--}}
 
                 // console.log(info);
                 let content = JSON.parse(info);
@@ -281,8 +313,7 @@
 
                 content = content.insights;
 
-                /* RESULTADOS DE LA PERSONALIDAD */
-                let personality = content.personality;
+                {{--console.log(info);--}}
 
                 let percentiles = [
                     personality[0].percentile,
@@ -366,6 +397,8 @@
                 new Chart(c4, {type: 'bar', data: barData, options: globalOptions});
 
 
+            // $('#panel2').toggleClass('ld-loading');
+            setTimeout(function() {
                 $('#panel1').toggleClass('ld-loading');
                 $('#search_row').hide(1000);
                 $('#result_header').show(1000);

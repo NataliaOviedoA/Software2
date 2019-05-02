@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PersonalityInsights;
-use App\Models\TwitterAccount;
 use Illuminate\Support\Facades\File;
+use App\Models\TwitterAccount;
 
 class AnalyzeController extends Controller
 {
