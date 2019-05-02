@@ -66,15 +66,21 @@
             <div class="panel">
 
                 <div class="panel-body">
-                    <h4> Resultado de análisis</h4>
+                    <h4> Resultado de análisis - Personalidad</h4>
 
                     <p class="small">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                         Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
                         took a galley of type and scrambled it to
                     </p>
 
-                    <div class="flot-chart  m-t-md m-b-xl" style="height: 200px">
-                        <div class="flot-chart-content" id="flotProfile"></div>
+                    {{--<div class="flot-chart  m-t-md m-b-xl" style="height: 200px">--}}
+                        {{--<div class="flot-chart-content" id="flotProfile"></div>--}}
+                    {{--</div>--}}
+
+                    <div class="panel-body">
+                        <div>
+                            <canvas id="lineOptions" height="180"></canvas>
+                        </div>
                     </div>
 
                     <table class="table table-striped">
@@ -82,51 +88,36 @@
                         <tr>
 
                             <th>#</th>
-                            <th>Project</th>
-                            <th>Company</th>
-                            <th>Task</th>
-                            <th>Date</th>
+                            <th>Nombre</th>
+                            <th>Percentil</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>1</td>
-                            <td>Adventurousness
-                            </td>
-                            <td>Inceptos Hymenaeos Ltd</td>
-                            <td>20%</td>
-                            <td>Jul 14, 2016</td>
+                            <td>Apertura al cambio (Openness to experience)</td>
+                            <td id="td0">Inceptos Hymenaeos Ltd</td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td>Artistic interests</td>
-                            <td>Nec Euismod In Company</td>
-                            <td>40%</td>
-                            <td>Jul 16, 2016</td>
+                            <td>Responsabilidad (Conscientiousness)</td>
+                            <td id="td1">Nec Euismod In Company</td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td>Emotionality</td>
-                            <td>Erat Volutpat</td>
-                            <td>75%</td>
-                            <td>Jul 18, 2016</td>
+                            <td>Extraversión (Extraversion)</td>
+                            <td id="td2">Erat Volutpat</td>
                         </tr>
                         <tr>
                             <td>4</td>
-                            <td>Imagination</td>
-                            <td>Intellect</td>
-                            <td>18%</td>
-                            <td>Jul 22, 2016</td>
+                            <td>Coordialidad (Agreebleness)</td>
+                            <td id="td3">Intellect</td>
                         </tr>
                         <tr>
-                            <td>2</td>
-                            <td>Authority-challenging</td>
-                            <td>Nec Euismod In Company</td>
-                            <td>40%</td>
-                            <td>Jul 16, 2016</td>
+                            <td>5</td>
+                            <td>Inestabilidad emocional (Rango emocional)</td>
+                            <td id="td4">Nec Euismod In Company</td>
                         </tr>
-
-
                         </tbody>
                     </table>
 
@@ -172,41 +163,41 @@
 @endsection
 
 @section("onready")
+    <script src="{{ asset('vendor/chart.js/dist/Chart.min.js')}}"></script>
     <script>
+        var globalOptions = {
+            responsive: true,
+            legend: {
+                labels:{
+                    fontColor:"#90969D"
+                }
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        fontColor: "#90969D"
+                    },
+                    gridLines: {
+                        color: "#37393F"
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        fontColor: "#90969D"
+                    },
+                    gridLines: {
+                        color: "#37393F"
+                    }
+                }]
+            }
+        };
+
         $(document).ready(function () {
 
             $('#result_header').hide();
             $('#result_timeline').hide();
             $('#anotherRow').hide();
-
-            var data = [
-                {
-                    data: [[1, 4], [2, 5], [3, 7], [4, 4], [5, 8], [6, 9], [7, 11], [8, 10], [9, 8], [10, 5], [11, 4], [12, 3]]
-                }
-            ];
-
-            var chartUsersOptions2 = {
-                series: {
-                    splines: {
-                        show: true,
-                        tension: 0.4,
-                        lineWidth: 2,
-                        fill: false
-                    },
-                },
-                legend: {
-                    show: false
-                },
-                grid: {
-                    borderWidth: 0
-                }
-            };
-
-            $.plot($("#flotProfile"), data, chartUsersOptions2);
-
-            // $('#panel1').toggleClass('ld-loading');
         });
-
 
         $('#analyzeButton').on('click', function (e) {
             $('#result_header').hide();
@@ -216,35 +207,94 @@
 
             $('#panel1').toggleClass('ld-loading');
 
-            {{--let account = document.getElementById("account").value;--}}
+            let account = document.getElementById("account").value;
 
-            {{--let parametros = {--}}
-                {{--account: account--}}
-            {{--};--}}
+            let parametros = {
+                account: account
+            };
 
-            {{--$.ajax({--}}
-                {{--type: "GET",--}}
-                {{--url: "{{ route('analizarCuenta') }}",--}}
-                {{--data: parametros,--}}
-            {{--}).done(function (info) {--}}
+            $.ajax({
+                type: "GET",
+                url: "{{ route('analizarCuenta') }}",
+                data: parametros,
+            }).done(function (info) {
 
-                {{--console.log(info);--}}
+                console.log(info);
+                let content = JSON.parse(info);
 
-                {{--$('#panel1').toggleClass('ld-loading');--}}
-                {{--$('#search_row').hide(1000);--}}
-                {{--$('#result_header').show(1000);--}}
-                {{--$('#result_timeline').show(1000);--}}
-                {{--$('#anotherRow').show(1000);--}}
-            {{--});--}}
+                console.log(content);
 
-            // $('#panel2').toggleClass('ld-loading');
-            setTimeout(function() {
+                /* RESULTADOS DE LA PERSONALIDAD */
+                let personality = content.personality;
+
+                let percentiles = [
+                    personality[0].percentile,
+                    personality[1].percentile,
+                    personality[2].percentile,
+                    personality[3].percentile,
+                    personality[4].percentile,
+                ];
+
+                for (let i = 0; i < 5; i++) {
+                    document.getElementById("td" + i).innerText = personality[i].percentile;
+                }
+
+                var lineData = {
+                    labels: ["Apertura al cambio", "Responsabilidad", "Extraversión", "Coordialidad", "Inestabilidad emocional"],
+                    datasets: [
+                        {
+                            label: "Personalidad",
+                            backgroundColor: 'transparent',
+                            borderColor: "#f6a821",
+                            pointBorderWidth: 0,
+                            pointRadius: 2,
+                            pointBorderColor: '#f6a821',
+                            borderWidth: 1,
+                            data: percentiles
+                        }
+                    ]
+                };
+
+                let c1 = document.getElementById("lineOptions").getContext("2d");
+                new Chart(c1, {type: 'line', data: lineData, options: globalOptions});
+
+                /* RESULTADOS DE NECESECIDADES */
+
+                // let
+                //
+                //
+                //
+                // var barData = {
+                //     labels: ["January", "February", "March", "April", "May", "June", "July", "asd" ,"asdf", "asdf", "Asdf", "Asdf"],
+                //     datasets: [
+                //         {
+                //             label: "Necesidade",
+                //             backgroundColor: 'transparent',
+                //             borderColor: "#f6a821",
+                //             borderWidth: 1,
+                //             data: [9, 8, 5, 6, 3, 2, 16]
+                //         }
+                //     ]
+                // };
+                //
+                // var c3 = document.getElementById("barOptions").getContext("2d");
+                // new Chart(c3, {type: 'bar', data: barData, options: globalOptions});
+
                 $('#panel1').toggleClass('ld-loading');
                 $('#search_row').hide(1000);
                 $('#result_header').show(1000);
                 $('#result_timeline').show(1000);
                 $('#anotherRow').show(1000);
-            }, (3 * 1000));
+            });
+
+            // $('#panel2').toggleClass('ld-loading');
+            // setTimeout(function() {
+            //     $('#panel1').toggleClass('ld-loading');
+            //     $('#search_row').hide(1000);
+            //     $('#result_header').show(1000);
+            //     $('#result_timeline').show(1000);
+            //     $('#anotherRow').show(1000);
+            // }, (3 * 1000));
 
         });
 
