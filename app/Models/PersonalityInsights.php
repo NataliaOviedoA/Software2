@@ -20,7 +20,7 @@ class PersonalityInsights
             $element = [];
             if (array_key_exists("text", $tweet)){
                 $element["content"] = $tweet["text"];
-                $element["contenttype"] = "text-plain";
+                $element["contenttype"] = "text/plain";
                 $element["created"] = strtotime($tweet["created_at"]);
                 $element["id"] = $tweet["id"];
                 $element["language"] = $tweet["lang"];
@@ -38,13 +38,13 @@ class PersonalityInsights
 
         //cURL
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, env('WATSON_URL', "") . "/v3/profile?version=2017-10-13");
+        curl_setopt($ch, CURLOPT_URL, env('WATSON_URL', "") . "/v3/profile?version=2017-10-13&consumption_preferences=true&raw_scores=true");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1); //POST
         curl_setopt($ch, CURLOPT_USERPWD, "apikey:" . env("WATSON_API_KEY", ""));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $file); //Parameters
         curl_setopt($ch, CURLOPT_POSTFIELDS, $file); //Parameters
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: text/plain;charset=utf-8", 'Accept: application/json', 'Content-Language: es'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "Accept: application/json", 'Content-Language: es'));
         // curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: text/plain;charset=utf-8", 'Accept: application/json', 'Content-Language: es'));
 
         // Execute the cURL command

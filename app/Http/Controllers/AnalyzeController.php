@@ -20,6 +20,13 @@ class AnalyzeController extends Controller
 
     public function analizarCuenta()
     {
+        /* Descomentar las dos siguientes lineas para pruebas sin servicio */
+        // echo File::get(storage_path("result_boliviadijono__1557200863.txt"));
+        // return;
+
+
+        /* VERSION FUNCIONAL CON SERVICIO */
+
         $account = $_REQUEST['account'];
 
         /* Obtiene los Tweets de la cuenta */
@@ -45,7 +52,5 @@ class AnalyzeController extends Controller
 
         File::put(storage_path($fileName), json_encode($result));
         echo json_encode($result);
-        //    return PersonalityInsights::getTweetsInsights($fileName);
-
     }
 }
