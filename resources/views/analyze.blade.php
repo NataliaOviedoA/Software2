@@ -250,10 +250,10 @@
                 data: parametros,
             }).done(function (info) {
 
-                // console.log(info);
+                console.log(info);
                 let content = JSON.parse(info);
 
-                // console.log(content.insights);
+                console.log(content);
 
                 /* ACTIVIDAD RECIENTE */
 

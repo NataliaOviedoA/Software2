@@ -20,7 +20,6 @@ class AnalyzeController extends Controller
 
     public function analizarCuenta()
     {
-
         $account = $_REQUEST['account'];
 
         /* Obtiene los Tweets de la cuenta */
@@ -39,9 +38,14 @@ class AnalyzeController extends Controller
         /* Obtiene los Tweets formateados para la vista */
         $timeline = TwitterAccount::formatTweets($tweets);
 
-        $result = array("insights" => json_decode($insights), "tweets" => $timeline);
-        echo json_encode($result);
+        /* Crea el archivo json */
+        $fileName = 'result_' . $account . '_' . time() . '.txt';
 
-//        return PersonalityInsights::getTweetsInsights($fileName);
+        $result = array("insights" => json_decode($insights), "tweets" => $timeline);
+
+        File::put(storage_path($fileName), json_encode($result));
+        echo json_encode($result);
+        //    return PersonalityInsights::getTweetsInsights($fileName);
+
     }
 }
