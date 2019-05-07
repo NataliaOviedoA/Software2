@@ -220,7 +220,7 @@
             account: account
         };
 
-        setTimeout(function() { // CACA COMENTAR ESTO
+        // setTimeout(function() { // CACA COMENTAR ESTO
 
             $.ajax({
                 type: "GET",
@@ -362,7 +362,7 @@
             });
 
 
-        }, (5 * 1000)); // CACA COMENTAR ESTO
+        // }, (5 * 1000)); // CACA COMENTAR ESTO
 
     });
 
